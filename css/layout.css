@@ -1,0 +1,412 @@
+/**
+ * Application Layout & Grid Structure
+ * Accurately matching panel dimensions, hierarchy and spacing from reference image.
+ */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-app);
+}
+
+/* A. Top Navigation Header */
+.app-header {
+  height: 50px;
+  background-color: var(--bg-app);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 20;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--text-primary);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nav-tab-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.nav-tab-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+.nav-tab-btn.active {
+  background-color: var(--accent-gold-tint);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.simulation-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background-color: rgba(229, 169, 60, 0.1);
+  border: 1px solid rgba(229, 169, 60, 0.3);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: var(--accent-gold);
+  cursor: pointer;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--accent-gold);
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.win-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px;
+  transition: color 0.15s;
+}
+
+.win-btn:hover {
+  color: var(--text-primary);
+}
+
+.win-close:hover {
+  color: var(--status-red);
+}
+
+/* App Main Body */
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* B. Left Sidebar */
+.app-sidebar {
+  width: 195px;
+  background-color: var(--bg-app);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.btn-import-main {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: var(--radius-lg);
+}
+
+.btn-import-main svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sidebar-item svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sidebar-item:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-item.active {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-recent-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.recent-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.recent-header svg {
+  width: 14px;
+  height: 14px;
+}
+
+.recent-list {
+  list-style: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  position: relative;
+}
+
+.recent-item svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.recent-item .file-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-item:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.recent-item.active {
+  color: var(--text-primary);
+}
+
+.recent-more-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 10px;
+  padding: 0 4px;
+}
+
+.recent-more-btn:hover {
+  color: var(--text-primary);
+}
+
+/* Sidebar Connection Status Card */
+.sidebar-status-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.sidebar-status-card:hover {
+  border-color: var(--border-medium);
+}
+
+.status-badge-circle {
+  width: 24px;
+  height: 24px;
+  background-color: var(--status-green-tint);
+  border: 1.5px solid var(--status-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--status-green);
+  flex-shrink: 0;
+}
+
+.status-badge-circle svg {
+  width: 13px;
+  height: 13px;
+}
+
+.status-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.status-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--status-green);
+  line-height: 1.2;
+}
+
+.status-port {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-dropdown-chevron svg {
+  width: 12px;
+  height: 12px;
+  color: var(--text-secondary);
+}
+
+/* Main Viewport */
+.app-main-viewport {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.app-main-view {
+  display: none;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-main-view.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Plot View Columns Layout */
+.plot-columns-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 240px 200px;
+  gap: 10px;
+  padding: 12px 14px 6px 14px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Panel Card base style */
+.panel-card {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Bottom Action Bar */
+.bottom-action-bar {
+  height: 60px;
+  background-color: var(--bg-app);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 12px;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.action-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

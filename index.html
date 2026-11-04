@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pen Plotter CNC</title>
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/workspace.css">
+  <link rel="stylesheet" href="css/design.css">
+  <link rel="stylesheet" href="css/control.css">
+  <link rel="stylesheet" href="css/modals.css">
+
+  <!-- Handwriting Fonts for Document Editor -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;600&family=Kalam:wght@300;400&family=Patrick+Hand&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+  <!-- OpenType.js via CDN (graceful fallback included in app) -->
+  <script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js"></script>
+</head>
+<body class="dark-theme">
+  <!-- Application Shell -->
+  <div class="app-container">
+
+    <!-- A. Top Navigation Bar -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="app-brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="#e5a93c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            <path d="M2 2l7.586 7.586"/>
+            <circle cx="11" cy="11" r="2"/>
+          </svg>
+          <span class="brand-title">Pen Plotter CNC</span>
+        </div>
+      </div>
+
+      <nav class="header-nav">
+        <button class="nav-tab-btn active" data-tab="plot" id="nav-btn-plot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+          <span>Plot</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="control" id="nav-btn-control">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+          <span>Control</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="settings" id="nav-btn-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="header-right">
+        <!-- Theme Toggle Button (Dark / Light) -->
+        <button class="theme-toggle-btn" id="btn-theme-toggle" title="Toggle Dark / Light Theme" aria-label="Toggle Dark / Light Theme">
+          <svg class="icon-theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <div class="simulation-badge-pill" id="sim-badge" title="Simulation Mode allows full visual plotting testing without physical machine">
+          <span class="badge-dot"></span>
+          <span class="badge-label">Simulation Mode</span>
+        </div>
+        <div class="window-controls">
+          <button class="win-btn win-min" title="Minimize">─</button>
+          <button class="win-btn win-max" title="Maximize">□</button>
+          <button class="win-btn win-close" title="Close">✕</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Content -->
+    <div class="app-body">
+
+      <!-- B. Left Sidebar -->
+      <aside class="app-sidebar">
+        <!-- Prominent Gold Import Button -->
+        <button class="btn-primary-gold btn-import-main" id="btn-open-import">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Import</span>
+        </button>
+
+        <!-- Sidebar Feature Menu Items -->
+        <nav class="sidebar-menu">
+          <button class="sidebar-item" id="btn-menu-image-to-plot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Image to Plot</span>
+          </button>
+          
+          <button class="sidebar-item" id="btn-menu-svg-dxf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M20 4L4 20"/><path d="M7 17a5 5 0 0 0 10-10"/></svg>
+            <span>SVG / DXF</span>
+          </button>
+
+          <button class="sidebar-item" id="btn-menu-gcode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>G-code</span>
+          </button>
+        </nav>
+
+        <!-- Recent Files Section -->
+        <div class="sidebar-recent-section">
+          <div class="recent-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Recent Files</span>
+          </div>
+          <ul class="recent-list" id="recent-files-list">
+            <!-- Dynamically populated only with files the user actually adds -->
+          </ul>
+        </div>
+
+        <!-- Connection Status Card at Bottom -->
+        <div class="sidebar-status-card" id="sidebar-connection-card">
+          <div class="status-badge-circle" id="connection-indicator-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="status-info">
+            <div class="status-label" id="connection-status-label">Connected</div>
+            <div class="status-port" id="connection-port-label">COM3 · 115200</div>
+          </div>
+          <div class="status-dropdown-chevron">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Views Container -->
+      <div class="app-main-viewport">
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: PLOT (Primary view matching image)     -->
+        <!-- ============================================== -->
+        <div class="app-main-view active" id="view-plot">
+          <div class="plot-columns-layout">
+
+            <!-- C. Central Workspace Panel -->
+            <section class="panel-card central-workspace-panel" id="workspace-container">
+              <!-- Workspace Top Toolbar -->
+              <div class="workspace-header">
+                <div class="workspace-tabs">
+                  <button class="ws-tab-btn active" id="ws-tab-doc" title="Document Writing & Text Editing Mode (Word / LibreOffice)">Document Editor</button>
+                  <button class="ws-tab-btn" id="ws-tab-gcode" title="Toolpath Visualizer & G-code Output">G-code</button>
+                </div>
+                <div class="workspace-tools">
+                  <button class="ws-tool-icon-btn" id="btn-fit-screen" title="Fit to Screen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                  </button>
+                  <button class="ws-tool-icon-btn" id="btn-zoom-out" title="Zoom Out">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  </button>
+                  <button class="ws-zoom-dropdown-btn" id="zoom-display-btn">
+                    100% ▾
+                  </button>
+                  <button class="ws-tool-icon-btn" id="btn-zoom-in" title="Zoom In">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  </button>
+                  <button class="ws-tool-icon-btn" id="btn-pan-tool" title="Pan Canvas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- LibreOffice-Style Document Formatting Ribbon Toolbar -->
+              <div class="libre-formatting-toolbar" id="libre-formatting-toolbar">
+                <div class="libre-left-group">
+                  <button class="libre-action-btn libre-btn-insert" id="libre-btn-insert" title="Insert Text into Document (T)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="19" y1="16" x2="19" y2="22"/><line x1="16" y1="19" x2="22" y2="19"/></svg>
+                    <span>Insert Text</span>
+                  </button>
+
+                  <button class="libre-action-btn libre-btn-add-image" id="libre-btn-add-image" title="Insert Vectorized Image into Document">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span>Add Image</span>
+                  </button>
+
+                  <button class="libre-action-btn libre-btn-sample" id="libre-btn-sample" title="Insert Sample Letter / Note for Testing">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span>Sample Note</span>
+                  </button>
+
+                  <button class="libre-action-btn libre-btn-clear" id="libre-btn-clear" style="background: transparent; color: var(--text-secondary); border-color: var(--border-subtle);" title="Clear Document Content">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    <span>Clear</span>
+                  </button>
+
+                  <div class="libre-sep"></div>
+
+                  <!-- Font Family Dropdown -->
+                  <div class="libre-ctrl-box" title="Handwriting & Single-Line Fonts">
+                    <select id="libre-font-select" class="libre-select libre-font-dropdown">
+                      <optgroup label="Handwriting (Single-Line Stroke)">
+                        <option value="hand_casual" selected>Casual Cursive (Handwriting)</option>
+                        <option value="hand_architect">Architect Hand (Draftsman)</option>
+                        <option value="hand_quicknote">Quick Jot (Fast Notes)</option>
+                        <option value="hand_fountain">Fountain Pen (Calligraphy)</option>
+                        <option value="hand_organic">Organic Hand-Print</option>
+                        <option value="hand_school">Neat School Script</option>
+                      </optgroup>
+                      <optgroup label="Technical (Single-Line)">
+                        <option value="hershey_simplex">Hershey Simplex (Technical)</option>
+                        <option value="hershey_duplex">Hershey Duplex (2-Stroke)</option>
+                      </optgroup>
+                      <optgroup label="System Outline Fonts">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Consolas">Consolas</option>
+                        <option value="Segoe UI">Segoe UI</option>
+                      </optgroup>
+                    </select>
+                  </div>
+
+                  <!-- Font Size -->
+                  <div class="libre-ctrl-box libre-size-box" title="Font Size (mm)">
+                    <input type="number" id="libre-font-size" class="libre-input-num" value="16" min="4" max="150" step="1">
+                    <span class="libre-unit-tag">mm</span>
+                  </div>
+
+                  <div class="libre-sep"></div>
+
+                  <!-- Style: Bold & Italic -->
+                  <div class="libre-btn-group">
+                    <button class="libre-tgl-btn" id="libre-btn-bold" title="Bold (B)"><b>B</b></button>
+                    <button class="libre-tgl-btn" id="libre-btn-italic" title="Italic (I)"><i>I</i></button>
+                  </div>
+
+                  <!-- Alignment: Left, Center, Right -->
+                  <div class="libre-btn-group">
+                    <button class="libre-tgl-btn active" id="libre-align-left" data-align="left" title="Align Left">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                    </button>
+                    <button class="libre-tgl-btn" id="libre-align-center" data-align="center" title="Align Center">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
+                    </button>
+                    <button class="libre-tgl-btn" id="libre-align-right" data-align="right" title="Align Right">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="libre-sep"></div>
+
+                  <!-- Line Spacing -->
+                  <div class="libre-ctrl-box" title="Line Spacing">
+                    <span class="libre-lbl">Line:</span>
+                    <select id="libre-line-spacing" class="libre-select libre-compact-select">
+                      <option value="1.0">1.0</option>
+                      <option value="1.2">1.2</option>
+                      <option value="1.3" selected>1.3</option>
+                      <option value="1.5">1.5</option>
+                      <option value="1.8">1.8</option>
+                      <option value="2.0">2.0</option>
+                    </select>
+                  </div>
+
+                  <!-- Handwriting Imperfections (Natural Human Touch) -->
+                  <div class="libre-ctrl-box" title="Handwriting Natural Imperfection / Human Touch">
+                    <span class="libre-lbl">Touch:</span>
+                    <select id="libre-imperfection" class="libre-select libre-compact-select">
+                      <option value="0.0">0% (Exact)</option>
+                      <option value="0.2">20% (Subtle)</option>
+                      <option value="0.38" selected>38% (Natural)</option>
+                      <option value="0.6">60% (Casual)</option>
+                      <option value="0.85">85% (Loose)</option>
+                    </select>
+                  </div>
+
+                  <div class="libre-sep"></div>
+
+                  <!-- Page Border Style Selector (Replaces old blank/margin/ruled lines) -->
+                  <div class="libre-ctrl-box" title="Built-in Document Border Style">
+                    <span class="libre-lbl">Border:</span>
+                    <select id="libre-border-style" class="libre-select libre-compact-select">
+                      <option value="none">None (Clean)</option>
+                      <option value="single" selected>Classic Single</option>
+                      <option value="double">Executive Double</option>
+                      <option value="corners">Vintage Corners</option>
+                      <option value="certificate">Certificate</option>
+                      <option value="cad">Technical CAD</option>
+                      <option value="modern">Modern Inset</option>
+                      <option value="dashed">Dashed Blueprint</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Central Canvas & Document Editing Area -->
+              <div class="workspace-canvas-stage">
+                <!-- 1. Dedicated Document Writing Studio (Stationary, Non-Movable, I Love PDF Page Sidebar) -->
+                <div class="doc-editor-studio" id="doc-editor-studio">
+                  <!-- Left: Document Pages Thumbnail Sidebar (I Love PDF Style) -->
+                  <aside class="doc-pages-sidebar" id="doc-pages-sidebar">
+                    <div class="pages-sidebar-header">
+                      <div class="pages-header-title">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        <span>Pages</span>
+                      </div>
+                      <button class="btn-add-page" id="btn-add-doc-page" title="Add New Blank Page (+)">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <span>Add</span>
+                      </button>
+                    </div>
+
+                    <!-- Scrollable list of page cards (I Love PDF style) -->
+                    <div class="doc-pages-list" id="doc-pages-list">
+                    </div>
+
+                    <div class="pages-sidebar-footer">
+                      <span id="doc-page-counter-badge">Page 1 of 1</span>
+                    </div>
+                  </aside>
+
+                  <!-- Right / Center: Stationary Document Sheet Stage (Natural text selection, zero unwanted dragging) -->
+                  <div class="doc-editor-viewport" id="doc-editor-viewport">
+                    <div class="doc-paper-sheet" id="doc-paper-sheet">
+                      <!-- Built-in Vector Border SVG Layer (pointer-events: none, exactly matching paper mm) -->
+                      <svg class="doc-page-border-svg" id="doc-page-border-svg" viewBox="0 0 297 210" preserveAspectRatio="none">
+                      </svg>
+
+                      <!-- Vectorized Images on Document Layer (Draggable, Resizable, Croppable) -->
+                      <div class="doc-page-images-container" id="doc-page-images-container"></div>
+
+                      <!-- Direct contenteditable text area -->
+                      <div class="doc-page-content" id="doc-page-content" contenteditable="true" spellcheck="false">Pen Plotter CNC — Document Editor
+
+Dear Maker,
+
+Welcome to the full document writing layout for 2D CNC pen plotters!
+
+You can write, edit, and select text directly on this page just like in Microsoft Word or LibreOffice Writer. Select any words to change fonts, bold, italic, line spacing, or handwriting imperfections.
+
+When ready, click "Start Plot" to draw your handwritten document with precision!</div>
+                    </div>
+                  </div>
+                </div>
+
+                <canvas id="top-ruler" class="ruler-top" style="display: none;"></canvas>
+                <canvas id="left-ruler" class="ruler-left" style="display: none;"></canvas>
+                <div class="ruler-corner" style="display: none;"></div>
+
+                <!-- 2. CNC Plot Preview Canvas Viewport (Active when Plot Preview tab is clicked) -->
+                <div class="workspace-viewport" id="preview-viewport" style="display: none;">
+                  <svg id="cnc-canvas-svg" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Layer 1: Paper Bed Layer (Strictly visual - Ignored in G-code) -->
+                    <g id="paper-layer" data-cnc-ignore="true"></g>
+
+                    <!-- Layer 2: Guide Layer (Grid alignment - Strictly visual - Ignored in G-code) -->
+                    <g id="guide-layer" data-cnc-ignore="true"></g>
+
+                    <!-- Layer 3: Artwork Layer (ONLY geometry here is exported for CNC plotting!) -->
+                    <g id="artwork-layer"></g>
+
+                    <!-- Simulation Layer: Animated virtual pen tip and drawn traces -->
+                    <g id="simulation-layer" data-cnc-ignore="true"></g>
+
+                    <!-- Selection & Transform UI Handles -->
+                    <g id="selection-layer" data-cnc-ignore="true"></g>
+                  </svg>
+                </div>
+
+                <!-- G-code Tab View Container (Active when G-code tab clicked) -->
+                <div class="gcode-viewport" id="gcode-viewport" style="display: none;">
+                  <div class="gcode-view-split">
+                    <div class="gcode-canvas-box">
+                      <div class="gcode-canvas-header">
+                        <span>Toolpath Visualizer</span>
+                        <div class="legend-items">
+                          <span class="legend-item"><span class="dot draw-dot"></span> Draw (G1)</span>
+                          <span class="legend-item"><span class="dot travel-dot"></span> Rapid Travel (G0)</span>
+                        </div>
+                      </div>
+                      <canvas id="gcode-preview-canvas" width="600" height="420"></canvas>
+                    </div>
+                    <div class="gcode-editor-box">
+                      <div class="gcode-editor-header">
+                        <span>G-code Output</span>
+                        <button class="btn-subtle" id="btn-download-gcode">Download .gcode</button>
+                      </div>
+                      <textarea id="gcode-text-display" readonly spellcheck="false"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Workspace Bottom Toolbar -->
+              <div class="workspace-footer">
+                <div class="workspace-action-tools">
+                  <button class="ws-action-btn" id="tool-delete" title="Delete Selected Vector / Element (Del)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
+                </div>
+
+                <div class="paper-preset-control">
+                  <select id="paper-preset-select" class="custom-select">
+                    <option value="A4-L" selected>A4 Landscape (297 × 210 mm)</option>
+                    <option value="A4-P">A4 Portrait (210 × 297 mm)</option>
+                    <option value="A3-L">A3 Landscape (420 × 297 mm)</option>
+                    <option value="A3-P">A3 Portrait (297 × 420 mm)</option>
+                    <option value="A5-L">A5 Landscape (210 × 148 mm)</option>
+                    <option value="A5-P">A5 Portrait (148 × 210 mm)</option>
+                    <option value="Letter-L">Letter Landscape (279.4 × 215.9 mm)</option>
+                    <option value="Letter-P">Letter Portrait (215.9 × 279.4 mm)</option>
+                    <option value="Custom">Custom Dimensions</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- D. Plot Settings Panel -->
+            <section class="panel-card side-settings-panel">
+              <h2 class="panel-title">Plot Settings</h2>
+
+              <!-- Pen Section -->
+              <div class="settings-subcard">
+                <div class="subcard-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+                  <span>Pen</span>
+                </div>
+                <div class="form-row">
+                  <label for="input-pen-up">Pen Up (Z Up)</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="input-pen-up" value="90" min="0" max="180">
+                    <span class="unit-label">°</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label for="input-pen-down">Pen Down (Z Down)</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="input-pen-down" value="60" min="0" max="180">
+                    <span class="unit-label">°</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Speed & Motion Section -->
+              <div class="settings-subcard">
+                <div class="subcard-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 10"/></svg>
+                  <span>Speed & Motion</span>
+                </div>
+                <div class="form-row">
+                  <label for="input-draw-speed">Drawing Speed</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="input-draw-speed" value="3000" min="100" max="15000" step="100">
+                    <span class="unit-label">mm/min</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label for="input-travel-speed">Travel Speed</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="input-travel-speed" value="6000" min="100" max="25000" step="100">
+                    <span class="unit-label">mm/min</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label for="input-line-accuracy">Line Accuracy</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="input-line-accuracy" value="0.10" min="0.01" max="1.0" step="0.01">
+                    <span class="unit-label">mm</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Plot Area Section -->
+              <div class="settings-subcard">
+                <div class="subcard-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+                  <span>Plot Area</span>
+                </div>
+                <div class="plot-area-container">
+                  <div class="plot-area-rows">
+                    <div class="form-row">
+                      <label for="input-area-width">Width (X)</label>
+                      <div class="input-with-unit">
+                        <input type="number" id="input-area-width" value="297" min="10" max="2000">
+                        <span class="unit-label">mm</span>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <label for="input-area-height">Height (Y)</label>
+                      <div class="input-with-unit">
+                        <input type="number" id="input-area-height" value="210" min="10" max="2000">
+                        <span class="unit-label">mm</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="lock-ratio-btn active" id="btn-lock-aspect" title="Lock Aspect Ratio">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- File Info Section -->
+              <div class="settings-subcard file-info-subcard">
+                <div class="file-info-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <span class="file-info-title" id="plot-filename">lotus.svg</span>
+                </div>
+                <div class="file-metrics-row">
+                  <span id="plot-path-count">Paths: 1,487</span>
+                  <span id="plot-file-size">Size: 142 KB</span>
+                </div>
+                <div class="file-time-row">
+                  <span>Estimated Time:</span>
+                  <strong id="plot-estimated-time">~ 4 min 32 sec</strong>
+                </div>
+              </div>
+            </section>
+
+            <!-- E. Machine Control Panel -->
+            <section class="panel-card machine-control-panel">
+              <div class="machine-panel-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 8 9 8 12 2"/><polygon points="12 22 9 16 15 16 12 22"/><polygon points="2 12 8 9 8 15 2 12"/><polygon points="22 12 16 15 16 9 22 12"/></svg>
+                <span>Machine Control</span>
+              </div>
+
+              <!-- Directional Jog Keypad -->
+              <div class="jog-keypad">
+                <div class="jog-row jog-top">
+                  <button class="jog-btn jog-up" id="jog-y-plus" title="Y+ (Up)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  </button>
+                </div>
+                <div class="jog-row jog-middle">
+                  <button class="jog-btn jog-left" id="jog-x-minus" title="X- (Left)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+                  <button class="jog-btn jog-home" id="jog-center-home" title="Home Origin (0,0)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  </button>
+                  <button class="jog-btn jog-right" id="jog-x-plus" title="X+ (Right)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+                <div class="jog-row jog-bottom">
+                  <button class="jog-btn jog-down" id="jog-y-minus" title="Y- (Down)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step Size Selector -->
+              <div class="step-size-container">
+                <div class="step-label">Step Size</div>
+                <div class="step-segmented-control">
+                  <button class="step-btn" data-step="0.1">0.1</button>
+                  <button class="step-btn active" data-step="1">1</button>
+                  <button class="step-btn" data-step="10">10</button>
+                  <button class="step-btn" data-step="50">50</button>
+                  <span class="step-unit">mm</span>
+                </div>
+              </div>
+
+              <!-- Pen Control Section -->
+              <div class="settings-subcard pen-action-subcard">
+                <div class="subcard-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+                  <span>Pen Control</span>
+                </div>
+                <div class="pen-control-buttons">
+                  <button class="btn-pen-action" id="btn-manual-pen-up">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                    <span>Pen Up</span>
+                  </button>
+                  <button class="btn-pen-action" id="btn-manual-pen-down">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                    <span>Pen Down</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Machine Status Readout -->
+              <div class="settings-subcard machine-status-subcard">
+                <div class="subcard-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  <span>Machine Status</span>
+                </div>
+                <div class="status-coord-row">
+                  <span class="coord-axis">X:</span>
+                  <span class="coord-value" id="status-coord-x">0.00 mm</span>
+                </div>
+                <div class="status-coord-row">
+                  <span class="coord-axis">Y:</span>
+                  <span class="coord-value" id="status-coord-y">0.00 mm</span>
+                </div>
+                <div class="status-coord-row">
+                  <span class="coord-axis">Z:</span>
+                  <span class="coord-value" id="status-coord-z">90.00 °</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- F. Bottom Action Bar -->
+          <footer class="bottom-action-bar">
+            <div class="action-bar-left">
+              <button class="btn-primary-gold btn-start-plot" id="btn-start-plot">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Start Plot</span>
+              </button>
+              <button class="btn-action-dark btn-pause-plot" id="btn-pause-plot">
+                <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                <span>Pause</span>
+              </button>
+              <button class="btn-action-dark btn-stop-plot" id="btn-stop-plot">
+                <svg viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+                <span>Stop</span>
+              </button>
+              <button class="btn-action-dark btn-home-plot" id="btn-home-plot">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+              </button>
+            </div>
+
+            <!-- Job Progress Bar -->
+            <div class="action-bar-progress" id="plot-progress-container" style="display: none;">
+              <div class="progress-details">
+                <span class="progress-state" id="progress-state-text">Plotting...</span>
+                <span class="progress-percent" id="progress-percent-text">0%</span>
+                <span class="progress-eta" id="progress-eta-text">ETA: 4m 32s</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+          </footer>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: CONTROL (CNC Console & Hardware)       -->
+        <!-- ============================================== -->
+        <div class="app-main-view" id="view-control">
+          <div class="control-view-container">
+            <div class="control-header-bar">
+              <h2>CNC Machine Control & Hardware Operations</h2>
+              <div class="control-badges">
+                <span class="status-pill status-ready" id="ctrl-state-badge">State: Idle</span>
+                <span class="status-pill status-serial" id="ctrl-port-badge">Port: Disconnected</span>
+              </div>
+            </div>
+
+            <div class="control-grid-layout">
+              <!-- Left: Hardware Connection & Emergency Stop -->
+              <div class="panel-card ctrl-card">
+                <h3>Serial Connection & Firmware</h3>
+                <div class="ctrl-form-group">
+                  <label>Serial Baud Rate</label>
+                  <select id="ctrl-baud-select" class="custom-select">
+                    <option value="115200" selected>115200 (GRBL 1.1 standard)</option>
+                    <option value="9600">9600 (GRBL 0.9 / older)</option>
+                    <option value="57600">57600</option>
+                    <option value="250000">250000</option>
+                  </select>
+                </div>
+                <div class="ctrl-button-row">
+                  <button class="btn-primary-gold" id="btn-ctrl-connect">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <span>Connect Port</span>
+                  </button>
+                  <button class="btn-action-dark" id="btn-ctrl-disconnect">Disconnect</button>
+                </div>
+
+                <hr class="divider">
+
+                <h3>Emergency & Machine State</h3>
+                <button class="btn-estop" id="btn-ctrl-estop" style="width: 100%; height: 42px; margin-bottom: 8px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span>EMERGENCY STOP (Feed Hold)</span>
+                </button>
+                <div class="ctrl-grid-3btns">
+                  <button class="btn-action-dark" id="btn-ctrl-reset" title="Soft Reset (Ctrl+X)">Reset (Ctrl+X)</button>
+                  <button class="btn-action-dark" id="btn-ctrl-unlock" title="Unlock Alarm ($X)">Unlock ($X)</button>
+                  <button class="btn-action-dark" id="btn-ctrl-home-cycle" title="Homing Cycle ($H)">Home ($H)</button>
+                </div>
+              </div>
+
+              <!-- Center: Coordinate Zeroing & Jogging -->
+              <div class="panel-card ctrl-card">
+                <h3>Work Coordinate System (G54)</h3>
+                <div class="wcs-readout-grid">
+                  <div class="wcs-item">
+                    <span class="axis">X</span>
+                    <span class="val" id="ctrl-coord-x">0.00 mm</span>
+                    <button class="btn-zero-axis" id="btn-zero-x">Zero X</button>
+                  </div>
+                  <div class="wcs-item">
+                    <span class="axis">Y</span>
+                    <span class="val" id="ctrl-coord-y">0.00 mm</span>
+                    <button class="btn-zero-axis" id="btn-zero-y">Zero Y</button>
+                  </div>
+                  <div class="wcs-item">
+                    <span class="axis">Z</span>
+                    <span class="val" id="ctrl-coord-z">90.00 °</span>
+                    <button class="btn-zero-axis" id="btn-zero-z">Zero Z</button>
+                  </div>
+                </div>
+                <div class="ctrl-button-row" style="margin-top: 14px;">
+                  <button class="btn-primary-gold" id="btn-zero-all" title="Zero work coordinates">Zero All (X0 Y0)</button>
+                  <button class="btn-action-dark" id="btn-goto-zero" title="Rapid move to zero">Go To Zero (G0)</button>
+                </div>
+
+                <hr class="divider">
+
+                <h3>Pen Servo Calibration</h3>
+                <div class="servo-calib-group">
+                  <div class="servo-calib-status">
+                    <span class="servo-label">Current Angle:</span>
+                    <strong class="servo-val" id="ctrl-pen-angle-text">90° (Pen UP)</strong>
+                  </div>
+                  <div class="servo-btn-pair">
+                    <button class="btn-subtle" id="btn-test-pen-up">Set Up (90°)</button>
+                    <button class="btn-subtle" id="btn-test-pen-down">Set Down (60°)</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: G-code MDI Console Terminal -->
+              <div class="panel-card ctrl-card terminal-card">
+                <h3>MDI Command Terminal</h3>
+                <div class="terminal-log-window" id="terminal-log">
+                </div>
+                <div class="terminal-input-bar">
+                  <input type="text" id="terminal-input" placeholder="Type G-code command (e.g. G0 X50 Y50, $$, ?)" spellcheck="false">
+                  <button class="btn-subtle" id="btn-terminal-send">Send</button>
+                </div>
+                <div class="terminal-quick-macros">
+                  <span>Quick commands:</span>
+                  <button class="macro-chip" data-cmd="?">?</button>
+                  <button class="macro-chip" data-cmd="$$">$$</button>
+                  <button class="macro-chip" data-cmd="$I">$I</button>
+                  <button class="macro-chip" data-cmd="$#">$#</button>
+                  <button class="macro-chip" data-cmd="G21 G90">G21 G90</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: SETTINGS                               -->
+        <!-- ============================================== -->
+        <div class="app-main-view" id="view-settings">
+          <div class="settings-view-container">
+            <h2>Application & Machine Settings</h2>
+            
+            <div class="settings-grid">
+              <!-- Machine Hardware Specs -->
+              <div class="panel-card">
+                <h3>Machine Bed & Hardware Limits</h3>
+                <div class="form-row">
+                  <label for="cfg-max-x">Max X Travel (mm)</label>
+                  <input type="number" id="cfg-max-x" value="320">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-max-y">Max Y Travel (mm)</label>
+                  <input type="number" id="cfg-max-y" value="240">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-steps-x">X Steps / mm ($100)</label>
+                  <input type="number" id="cfg-steps-x" value="80.0">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-steps-y">Y Steps / mm ($101)</label>
+                  <input type="number" id="cfg-steps-y" value="80.0">
+                </div>
+              </div>
+
+              <!-- Pen Calibration -->
+              <div class="panel-card">
+                <h3>Pen Calibration & Delays</h3>
+                <div class="form-row">
+                  <label for="cfg-pen-up-angle">Default Pen Up Angle (°)</label>
+                  <input type="number" id="cfg-pen-up-angle" value="90">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-pen-down-angle">Default Pen Down Angle (°)</label>
+                  <input type="number" id="cfg-pen-down-angle" value="60">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-lift-delay">Pen Lift Dwell Delay (seconds)</label>
+                  <input type="number" id="cfg-lift-delay" value="0.15" step="0.05">
+                </div>
+                <div class="form-row">
+                  <label for="cfg-pen-mode">Pen Mechanism Type</label>
+                  <select id="cfg-pen-mode" class="custom-select">
+                    <option value="servo" selected>Micro Servo (M3 S[angle])</option>
+                    <option value="z_axis">Z Stepper Axis (G0/G1 Z[mm])</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Font Library Manager (IndexedDB) -->
+              <div class="panel-card" style="grid-column: 1 / -1;">
+                <div class="font-library-header">
+                  <div>
+                    <h3>Font Library Manager</h3>
+                  </div>
+                  <button class="btn-primary-gold" id="btn-settings-upload-font">+ Upload Font File (TTF / OTF)</button>
+                </div>
+
+                <div class="custom-fonts-table-container">
+                  <table class="fonts-table">
+                    <thead>
+                      <tr>
+                        <th>Display Name</th>
+                        <th>Type / Category</th>
+                        <th>File Source</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="settings-fonts-tbody">
+                      <!-- Rendered dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Human Touch Displacement Filter for On-Page Handwriting -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none;" aria-hidden="true">
+    <defs>
+      <filter id="handwriting-jitter-filter" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" id="touch-fe-turbulence" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4" xChannelSelector="R" yChannelSelector="G" id="touch-fe-displacement" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ============================================== -->
+  <!-- MODALS                                         -->
+  <!-- ============================================== -->
+
+  <!-- 1. Unified Import Modal -->
+  <div class="modal-backdrop" id="modal-import" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Import Artwork / Toolpath</h3>
+        <button class="modal-close-btn" data-close="modal-import" title="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="dropzone-area" id="import-dropzone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <h4>Drop files here or click to browse</h4>
+          <p>Supports SVG, DXF, G-code, PNG, JPG, and TTF fonts</p>
+          <input type="file" id="universal-file-input" style="display: none;" accept=".svg,.dxf,.gcode,.nc,.png,.jpg,.jpeg,.ttf,.otf">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-subtle" data-close="modal-import">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Image-to-Plot Tracing Studio Modal -->
+  <div class="modal-backdrop" id="modal-image-trace" style="display: none;">
+    <div class="modal-dialog modal-large modal-trace-studio">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <h3 style="margin: 0; font-size: 16px;">Image-to-Plot Vectorizer Studio</h3>
+        </div>
+        <button class="modal-close-btn" data-close="modal-image-trace">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Top Toolbar Controls matching reference tool -->
+        <div class="trace-top-controls">
+          <!-- Row 1: Source & Filter/Algorithm Selection -->
+          <div class="trace-control-row trace-row-primary">
+            <div class="form-field file-field-compact">
+              <label>Select Image File (PNG, JPG, SVG, WEBP)</label>
+              <input type="file" id="image-trace-file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml,.svg">
+            </div>
+            
+            <div class="form-field details-field">
+              <label>Details</label>
+              <select id="trace-details-select" class="custom-select">
+                <option value="strong" selected>Strong (Dense)</option>
+                <option value="ultra">Ultra-Fine (Extreme)</option>
+                <option value="medium">Medium</option>
+                <option value="light">Light (Fast)</option>
+              </select>
+            </div>
+
+            <div class="form-field algo-field">
+              <label>Filters & Algorithms</label>
+              <select id="trace-algorithm-select" class="custom-select">
+                <optgroup label="🌟 Master Combos (Reference Appearance)">
+                  <option value="combo_spider" selected>Spider-Man Master Combo (Edge 1 + Internal + Cross-Hatch)</option>
+                  <option value="svg_direct">Original SVG Vector Geometry (1:1 Direct Vector Extraction)</option>
+                  <option value="artistic_1">Artistic 1 (Graphic Novel Inking & Shading)</option>
+                  <option value="artistic_2">Artistic 2 (Complex Architectural Blueprint)</option>
+                  <option value="detail_1">Detail 1 (Extreme Detail Multi-Pass)</option>
+                </optgroup>
+                <optgroup label="📐 Edge Filters (Crisp Outlines & Architecture)">
+                  <option value="edge_1">Edge 1 (Architectural Linework & High-Pass DoG)</option>
+                  <option value="edge_2">Edge 2 (Canny Clean Outlines)</option>
+                  <option value="edge_3">Edge 3 (Multi-Scale Gradient Edges)</option>
+                  <option value="edge_4">Edge 4 (Bold Comic Inking)</option>
+                  <option value="edge_5">Edge 5 (Pencil Sketch & Fine Linework)</option>
+                  <option value="edge_6">Edge 6 (Inverted Negative Outlines)</option>
+                </optgroup>
+                <optgroup label="🌊 Internal Tonal Depth (Isolines & Volume)">
+                  <option value="internal_1">Internal 1 (4-Band Topographic Isolines)</option>
+                  <option value="internal_2">Internal 2 (6-Band High-Density Depth)</option>
+                  <option value="internal_3">Internal 3 (Deep Shadow Tone Loops)</option>
+                  <option value="internal_4">Internal 4 (Shadow Density Fill)</option>
+                  <option value="internal_5">Internal 5 (Midtone & Highlight Isolines)</option>
+                </optgroup>
+                <optgroup label="✏️ Hatching & Cross-Hatching (Plotter Shading)">
+                  <option value="hatch_45">Diagonal 45° Hatching</option>
+                  <option value="crosshatch_dual">Cross-Hatching (45° & 135° Intersecting)</option>
+                  <option value="crosshatch_triple">Triple Cross-Hatch (0°, 60°, 120° Engraver)</option>
+                  <option value="hatch">Horizontal Parallel Hatching</option>
+                  <option value="crosshatch">Dense Standard Cross-Hatch</option>
+                </optgroup>
+                <optgroup label="🎯 Stippling (Pointillism & Dots)">
+                  <option value="stipple_diffusion">Stippling: Error-Diffusion (Floyd-Steinberg Dots)</option>
+                  <option value="stipple_adaptive">Stippling: Density-Adaptive Dots</option>
+                </optgroup>
+                <optgroup label="〰️ Halftoning (Wavy Lines & Pattern Screens)">
+                  <option value="halftone_wave">Halftone: Oscillating Sine Wave Lines (Audio Wave)</option>
+                  <option value="halftone_circle">Halftone: Concentric Rings / Circles</option>
+                  <option value="halftone_grid">Halftone: Diamond Pattern Grid</option>
+                </optgroup>
+                <optgroup label="✨ Smooth & Clean Outlines">
+                  <option value="smooth_1">Smooth 1 (Organic Contour Curves)</option>
+                  <option value="smooth_2">Smooth 2 (High-Tension Bezier Outlines)</option>
+                  <option value="clean_1">Clean 1 (Silhouette & High-Contrast)</option>
+                  <option value="sharp_1">Sharp 1 (Precision Drafting)</option>
+                  <option value="contour">Adaptive Contour Tracing (Base)</option>
+                  <option value="edges">Sobel Outline Edges (Base)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 2: Spacious, Highly-Accessible Sliders & Fine-Tuning Controls -->
+          <div class="trace-control-row trace-row-sliders">
+            <div class="form-field slider-spacious">
+              <div class="slider-header">
+                <label for="trace-threshold">Brightness Threshold</label>
+                <span class="slider-badge" id="trace-thresh-val">128</span>
+              </div>
+              <div class="slider-track-wrap">
+                <span class="slider-limit">20 (Dark)</span>
+                <input type="range" id="trace-threshold" min="20" max="240" value="128">
+                <span class="slider-limit">240 (Light)</span>
+              </div>
+            </div>
+
+            <div class="form-field slider-spacious">
+              <div class="slider-header">
+                <label for="trace-line-step">Stroke Density / Spacing</label>
+                <span class="slider-badge" id="trace-step-val">4px</span>
+              </div>
+              <div class="slider-track-wrap">
+                <span class="slider-limit">2px (Fine)</span>
+                <input type="range" id="trace-line-step" min="2" max="14" value="4">
+                <span class="slider-limit">14px (Sparse)</span>
+              </div>
+            </div>
+
+            <div class="form-field checkbox-field check-prominent">
+              <label class="toggle-label">
+                <input type="checkbox" id="trace-invert">
+                <span>Invert Dark/Light</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Comparison Layout matching reference image -->
+        <div class="trace-dual-viewport-grid">
+          <!-- Left: Original Image -->
+          <div class="trace-preview-column">
+            <div class="trace-card-banner">ORIGINAL RESIZED</div>
+            <div class="trace-canvas-box orig-box">
+              <img id="trace-orig-preview-img" style="display: none; max-width: 100%; max-height: 310px; object-fit: contain; border-radius: 4px;">
+              <div id="trace-orig-empty-hint" style="color: var(--text-muted); font-size: 11px; text-align: center; padding: 30px 10px;">Upload an image or select a preset to see the original preview</div>
+            </div>
+          </div>
+
+          <!-- Right: Vectorized SVG Result -->
+          <div class="trace-preview-column">
+            <div class="trace-card-banner banner-gold">
+              <span>VECTOR PLOT RESULT</span>
+              <span id="trace-path-metrics" style="font-weight: 400; opacity: 0.9;">0 strokes</span>
+            </div>
+            <div class="trace-canvas-box vec-box">
+              <svg id="image-trace-svg" viewBox="0 0 160 160" preserveAspectRatio="xMidYMid meet">
+                <path id="image-trace-path" fill="none" stroke="#0f172a" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn-subtle" data-close="modal-image-trace">Cancel</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-subtle" id="btn-download-trace-svg" title="Download standalone SVG vector file">⬇ Download SVG</button>
+          <button class="btn-primary-gold" id="btn-apply-image-trace">Add to Document Editor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Add Custom Font Modal (IndexedDB) -->
+  <div class="modal-backdrop" id="modal-add-font" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Import Custom Font File</h3>
+        <button class="modal-close-btn" data-close="modal-add-font">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Font File (TTF or OTF)</label>
+          <input type="file" id="custom-font-file-input" accept=".ttf,.otf,.woff">
+        </div>
+        <div class="form-field">
+          <label for="custom-font-name-input">Application Display Name</label>
+          <input type="text" id="custom-font-name-input" placeholder="e.g. My Elegant Script">
+        </div>
+        <div class="font-preview-box" id="font-upload-preview">
+          ABCDEFGHIJKLM<br>nopqrstuvwxyz 123456789
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-subtle" data-close="modal-add-font">Cancel</button>
+        <button class="btn-primary-gold" id="btn-save-custom-font">Save & Install Font</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Rename Font Modal -->
+  <div class="modal-backdrop" id="modal-rename-font" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Rename Font</h3>
+        <button class="modal-close-btn" data-close="modal-rename-font">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="rename-font-id">
+        <div class="form-field">
+          <label for="rename-font-new-name">New Display Name</label>
+          <input type="text" id="rename-font-new-name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-subtle" data-close="modal-rename-font">Cancel</button>
+        <button class="btn-primary-gold" id="btn-confirm-rename-font">Save Name</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Bootstrap Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

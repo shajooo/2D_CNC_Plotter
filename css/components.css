@@ -1,0 +1,648 @@
+/**
+ * Components, Buttons, Controls, and Forms
+ * Reproducing exact button shapes, input boxes with unit tags, and jog buttons.
+ */
+
+/* 1. Buttons */
+.btn-primary-gold {
+  background-color: var(--accent-gold);
+  color: var(--accent-btn-text, #0c0e12);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-primary-gold svg {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-primary-gold:hover {
+  background-color: var(--accent-gold-hover);
+  box-shadow: 0 2px 10px var(--accent-gold-glow);
+}
+
+.btn-primary-gold:active {
+  background-color: var(--accent-gold-active);
+  transform: translateY(1px);
+}
+
+.btn-start-plot {
+  height: 42px;
+  padding: 0 24px;
+  font-size: 14px;
+  border-radius: var(--radius-lg);
+}
+
+.btn-start-plot svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-action-dark {
+  background-color: var(--bg-subcard);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  height: 42px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-action-dark svg {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.btn-action-dark:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--text-secondary);
+}
+
+.btn-action-dark:active {
+  transform: translateY(1px);
+}
+
+.btn-subtle {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-subtle svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btn-subtle:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+  background-color: var(--bg-hover);
+}
+
+.btn-estop {
+  background-color: var(--status-red);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-estop svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-estop:hover {
+  background-color: #dc2626;
+  box-shadow: 0 0 12px var(--status-red-tint);
+}
+
+/* 2. Sub-cards & Settings Headers */
+.side-settings-panel, .machine-control-panel {
+  padding: 12px;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-left: 2px;
+}
+
+.machine-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-left: 2px;
+}
+
+.machine-panel-header svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+}
+
+.settings-subcard {
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subcard-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.subcard-header svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-gold);
+}
+
+/* Hide native browser spin buttons on number inputs to prevent overlapping */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* 3. Form Rows & Input with Units */
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.form-row label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex: 1;
+  white-space: nowrap;
+}
+
+.input-with-unit {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  height: 28px;
+  width: 110px;
+  flex-shrink: 0;
+  padding: 0 8px;
+  transition: border-color 0.15s;
+}
+
+.input-with-unit:focus-within {
+  border-color: var(--accent-gold);
+}
+
+.input-with-unit input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-sans);
+  text-align: right;
+  padding: 0 4px 0 0;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.unit-label {
+  color: var(--text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  padding-left: 2px;
+}
+
+/* Plot Area Layout with Lock Button */
+.plot-area-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plot-area-rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plot-area-rows .input-with-unit {
+  width: 95px;
+}
+
+.lock-ratio-btn {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  width: 24px;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.lock-ratio-btn:hover {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+.lock-ratio-btn.active {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background-color: var(--accent-gold-tint);
+}
+
+.lock-ratio-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* File Info Subcard */
+.file-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.file-info-header svg {
+  width: 15px;
+  height: 15px;
+  color: var(--text-secondary);
+}
+
+.file-metrics-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.file-time-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.file-time-row strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* 4. Jog Keypad */
+.jog-keypad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.jog-row {
+  display: flex;
+  gap: 6px;
+}
+
+.jog-btn {
+  width: 44px;
+  height: 44px;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.jog-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jog-btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.jog-btn:active {
+  transform: scale(0.96);
+}
+
+.jog-home {
+  border-color: var(--border-subtle);
+}
+
+/* 5. Step Size Segmented Control */
+.step-size-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.step-label {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.step-segmented-control {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.step-btn {
+  flex: 1;
+  height: 26px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.step-btn:hover {
+  color: var(--text-primary);
+}
+
+.step-btn.active {
+  background-color: var(--accent-gold);
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.step-unit {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 6px;
+}
+
+/* Pen Control Buttons */
+.pen-control-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btn-pen-action {
+  height: 48px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-pen-action svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-secondary);
+}
+
+.btn-pen-action:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--accent-gold);
+}
+
+.btn-pen-action:hover svg {
+  color: var(--accent-gold);
+}
+
+/* Machine Status Readout */
+.status-coord-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 1px 0;
+}
+
+.coord-axis {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.coord-value {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* Custom Select Dropdowns */
+.custom-select, .libre-select, select {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary) !important;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+select option {
+  background-color: #1a1d24 !important;
+  color: #f8fafc !important;
+  padding: 6px 10px;
+}
+
+select optgroup {
+  background-color: #121418 !important;
+  color: #e5a93c !important;
+  font-weight: 600;
+  font-style: normal;
+  padding: 4px 6px;
+}
+
+body.light-theme select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+body.light-theme select optgroup {
+  background-color: #f1f5f9 !important;
+  color: #b45309 !important;
+}
+
+.custom-select {
+  padding: 6px 28px 6px 10px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a8f9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+}
+
+.custom-select:focus, .libre-select:focus {
+  border-color: var(--accent-gold);
+}
+
+/* Action Bar Progress Indicator */
+.action-bar-progress {
+  flex: 1;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--bg-subcard);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent-gold);
+  border-radius: var(--radius-pill);
+  transition: width 0.2s ease;
+}
+
+/* Floating Toast Alerts */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.toast {
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  color: var(--text-primary);
+  font-size: 12.5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  animation: toastFadeIn 0.2s ease;
+}
+
+.toast.toast-success {
+  border-left: 3px solid var(--status-green);
+}
+
+.toast.toast-error {
+  border-left: 3px solid var(--status-red);
+}
+
+.toast.toast-warning {
+  border-left: 3px solid var(--status-yellow);
+}
+
+.toast.toast-info {
+  border-left: 3px solid var(--accent-gold);
+}
+
+/* Helper 3-button grid for compact control rows */
+.ctrl-grid-3btns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ctrl-grid-3btns .btn-action-dark {
+  height: 36px;
+  padding: 0 6px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

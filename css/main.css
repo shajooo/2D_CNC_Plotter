@@ -1,0 +1,186 @@
+/**
+ * Main Stylesheet & Theme System for Pen Plotter CNC
+ * Modern Industrial CNC Aesthetic with Dark & Light Themes.
+ */
+
+:root, body.dark-theme {
+  /* Color Palette - Modern Deep Charcoal Dark Theme */
+  --bg-app: #0c0e12;           /* Deep matte background */
+  --bg-header: #11141b;        /* Navigation header */
+  --bg-sidebar: #12151d;       /* Sidebar background */
+  --bg-panel: #151922;         /* Primary panel background */
+  --bg-subcard: #1b202c;       /* Sub-cards and form sections */
+  --bg-input: #10131a;         /* Input & select backgrounds */
+  --bg-hover: #222837;         /* Hover state */
+  
+  /* Borders */
+  --border-subtle: #212634;    /* Dark subtle panel border */
+  --border-medium: #2e3549;    /* Medium component border */
+  --border-focus: #f59e0b;     /* Focus border */
+
+  /* CNC Amber / Gold Accents */
+  --accent-gold: #f59e0b;       /* Primary signature gold */
+  --accent-gold-hover: #fbbf24; /* Brighter gold hover */
+  --accent-gold-active: #d97706;/* Deep gold active */
+  --accent-gold-tint: rgba(245, 158, 11, 0.12);
+  --accent-gold-glow: rgba(245, 158, 11, 0.25);
+  --accent-btn-text: #0c0e12;  /* High contrast text on gold */
+
+  /* Status Colors */
+  --status-green: #10b981;
+  --status-green-tint: rgba(16, 185, 129, 0.14);
+  --status-red: #ef4444;
+  --status-red-tint: rgba(239, 68, 68, 0.16);
+  --status-yellow: #f59e0b;
+  --status-yellow-tint: rgba(245, 158, 11, 0.14);
+  --status-blue: #3b82f6;
+
+  /* Typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dark: #0f172a;
+
+  /* Workspace & Canvas */
+  --workspace-bg: #090b0f;
+  --workspace-grid-major: rgba(255, 255, 255, 0.08);
+  --workspace-grid-minor: rgba(255, 255, 255, 0.03);
+  --paper-bg: #ffffff;
+  --paper-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  --ruler-bg: #12151d;
+  --ruler-text: #64748b;
+  --guide-stroke: rgba(255, 255, 255, 0.12);
+
+  /* Radii & Typography */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 9999px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+/* Light Theme - Modern Clean Industrial Studio */
+body.light-theme {
+  --bg-app: #f1f5f9;           /* Clean studio slate */
+  --bg-header: #ffffff;        /* Crisp white navigation */
+  --bg-sidebar: #f8fafc;       /* Elevated sidebar */
+  --bg-panel: #ffffff;         /* White cards and panels */
+  --bg-subcard: #f8fafc;       /* Subtle off-white sections */
+  --bg-input: #ffffff;         /* White input backgrounds */
+  --bg-hover: #e2e8f0;         /* Soft hover highlight */
+
+  --border-subtle: #e2e8f0;    /* Crisp light border */
+  --border-medium: #cbd5e1;    /* Defined component border */
+  --border-focus: #d97706;     /* Warm amber focus */
+
+  --accent-gold: #d97706;       /* Rich warm amber gold */
+  --accent-gold-hover: #b45309; /* Deep amber hover */
+  --accent-gold-active: #92400e;
+  --accent-gold-tint: rgba(217, 119, 6, 0.12);
+  --accent-gold-glow: rgba(217, 119, 6, 0.2);
+  --accent-btn-text: #ffffff;  /* Crisp white text on amber button */
+
+  --status-green: #059669;
+  --status-green-tint: rgba(5, 150, 105, 0.12);
+  --status-red: #dc2626;
+  --status-red-tint: rgba(220, 38, 38, 0.12);
+  --status-yellow: #d97706;
+  --status-yellow-tint: rgba(217, 119, 6, 0.12);
+  --status-blue: #2563eb;
+
+  --text-primary: #0f172a;     /* Deep slate text */
+  --text-secondary: #475569;   /* Readable medium gray */
+  --text-muted: #94a3b8;       /* Subtle muted metadata */
+  --text-dark: #0f172a;
+
+  --workspace-bg: #e2e8f0;     /* Neutral canvas gray */
+  --workspace-grid-major: rgba(0, 0, 0, 0.08);
+  --workspace-grid-minor: rgba(0, 0, 0, 0.03);
+  --paper-bg: #ffffff;
+  --paper-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  --ruler-bg: #f8fafc;
+  --ruler-text: #64748b;
+  --guide-stroke: rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--bg-subcard);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+.theme-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+body.dark-theme .icon-theme-sun {
+  display: block;
+}
+body.dark-theme .icon-theme-moon {
+  display: none;
+}
+
+body.light-theme .icon-theme-sun {
+  display: none;
+}
+body.light-theme .icon-theme-moon {
+  display: block;
+}
+
+/* Custom Sleek Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

@@ -1,0 +1,303 @@
+/**
+ * CNC Control & Hardware Operations Stylesheet
+ * Console, MDI Terminal, WCS Zeroing, Emergency Stop, and Serial Settings.
+ */
+
+.control-view-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.control-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.control-header-bar h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.control-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.status-pill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.status-ready {
+  background-color: var(--status-green-tint);
+  border: 1px solid var(--status-green);
+  color: var(--status-green);
+}
+
+.status-serial {
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+}
+
+.control-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.ctrl-card {
+  padding: 16px;
+  gap: 12px;
+  min-width: 0;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.ctrl-card h3 {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.ctrl-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ctrl-form-group label {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.ctrl-button-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ctrl-button-row > * {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  white-space: nowrap;
+}
+
+.ctrl-notice {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.35;
+  background-color: var(--bg-input);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--accent-gold);
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background-color: var(--border-subtle);
+  margin: 10px 0;
+}
+
+/* Servo Calibration */
+.servo-calib-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-input);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-top: 4px;
+}
+
+.servo-calib-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.servo-calib-status .servo-label {
+  color: var(--text-secondary);
+}
+
+.servo-calib-status .servo-val {
+  color: var(--accent-gold);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.servo-btn-pair {
+  display: flex;
+  gap: 8px;
+}
+
+.servo-btn-pair button {
+  flex: 1;
+  height: 34px;
+  white-space: nowrap;
+}
+
+.estop-row {
+  display: flex;
+  gap: 8px;
+}
+
+.estop-row .btn-estop {
+  flex: 1.2;
+}
+
+.estop-row .btn-action-dark {
+  flex: 1;
+  height: 38px;
+}
+
+/* WCS Readout Grid */
+.wcs-readout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.wcs-item {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.wcs-item .axis {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.wcs-item .val {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.btn-zero-axis {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 10px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  width: 100%;
+}
+
+.btn-zero-axis:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gold);
+}
+
+/* MDI Console Terminal */
+.terminal-card {
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+}
+
+.terminal-log-window {
+  flex: 1;
+  background-color: #0b0c0e;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-entry.info {
+  color: var(--text-secondary);
+}
+
+.log-entry.sent {
+  color: var(--accent-gold);
+}
+
+.log-entry.received {
+  color: var(--status-green);
+}
+
+.log-entry.error {
+  color: var(--status-red);
+}
+
+.terminal-input-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.terminal-input-bar input {
+  flex: 1;
+  height: 32px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0 10px;
+  outline: none;
+}
+
+.terminal-input-bar input:focus {
+  border-color: var(--accent-gold);
+}
+
+.terminal-quick-macros {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.macro-chip {
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.macro-chip:hover {
+  color: var(--accent-gold);
+  border-color: var(--border-medium);
+}

@@ -1,0 +1,338 @@
+/**
+ * Design & Handwriting Studio Stylesheet
+ * Paper Appearance Styles (Blank, Margined, Ruled), Guides Controls, and Text-to-Plot Composer.
+ */
+
+.design-view-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 12px;
+  padding: 14px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.design-sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.design-sidebar-panel h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Built-in Border Options */
+.border-style-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.border-style-option {
+  cursor: pointer;
+}
+
+.border-style-option input {
+  display: none;
+}
+
+.border-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  transition: all 0.15s ease;
+}
+
+.border-style-option input:checked + .border-card {
+  border-color: var(--accent-gold);
+  background-color: var(--accent-gold-tint);
+}
+
+.border-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.border-desc {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* Guide Controls */
+.guide-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-field label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.form-field input[type="number"], .form-field input[type="text"] {
+  height: 28px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 2px 8px;
+  font-size: 12px;
+  outline: none;
+}
+
+.form-field input:focus {
+  border-color: var(--accent-gold);
+}
+
+/* CRITICAL CNC RULE CALLOUT BANNER */
+.cnc-rule-callout {
+  display: flex;
+  gap: 10px;
+  background-color: rgba(229, 169, 60, 0.08);
+  border: 1px solid rgba(229, 169, 60, 0.3);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  margin-top: 6px;
+}
+
+.rule-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.rule-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 10.5px;
+  color: #e2e8f0;
+  line-height: 1.35;
+}
+
+.rule-text strong {
+  color: var(--accent-gold);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Right: Text Composer */
+.design-workspace-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.text-composer-card {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-composer-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text-composer-body {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+.composer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.composer-left textarea {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  padding: 10px;
+  resize: vertical;
+  outline: none;
+}
+
+.composer-left textarea:focus {
+  border-color: var(--accent-gold);
+}
+
+.composer-font-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.font-select-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.font-select-group label {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.typography-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.typo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.typo-item label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.typo-item input {
+  height: 32px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  font-size: 12px;
+  outline: none;
+}
+
+.typo-item input:focus {
+  border-color: var(--accent-gold);
+}
+
+.align-btn-group {
+  display: flex;
+  gap: 4px;
+  height: 32px;
+}
+
+.align-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.align-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.align-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.align-btn.active {
+  background-color: var(--accent-gold);
+  color: var(--accent-btn-text, #0c0e12);
+  border-color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.composer-actions {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.composer-actions .btn-primary-gold {
+  width: 100%;
+  height: 42px;
+}
+
+#btn-convert-text-to-paths svg {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  max-width: 16px;
+  max-height: 16px;
+  flex-shrink: 0;
+}
+
+.composer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text-vector-preview-box {
+  flex: 1;
+  background-color: #0c0d10;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  min-height: 160px;
+}
+
+#composer-preview-svg {
+  width: 100%;
+  max-height: 200px;
+}
+
+.font-category-badge {
+  padding: 6px 10px;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--accent-gold);
+  text-align: center;
+}

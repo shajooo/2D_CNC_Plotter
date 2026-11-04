@@ -1,0 +1,883 @@
+/**
+ * Workspace, Canvas, Rulers, and Toolbars
+ * Precise layout of Central Workspace matching the reference screenshot.
+ */
+
+.central-workspace-panel {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* Workspace Header */
+.workspace-header {
+  height: 42px;
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.workspace-tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ws-tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.ws-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.ws-tab-btn.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.ws-tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 1px;
+}
+
+/* Workspace Tool Icons on Right */
+.workspace-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ws-tool-icon-btn {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ws-tool-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ws-tool-icon-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.ws-tool-icon-btn.active {
+  background-color: var(--accent-gold-tint);
+  color: var(--accent-gold);
+}
+
+.ws-zoom-dropdown-btn {
+  height: 28px;
+  padding: 0 8px;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ws-zoom-dropdown-btn:hover {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+/* Central Stage & Rulers */
+.workspace-canvas-stage {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-color: #0c0d10;
+  min-height: 0;
+}
+
+.ruler-top {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  right: 0;
+  height: 24px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ruler-left {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ruler-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 24px;
+  background-color: #101216;
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 6;
+}
+
+/* Viewport for SVG Canvas */
+.workspace-viewport {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  cursor: grab;
+  background-color: #0c0d10;
+}
+
+.workspace-viewport:active {
+  cursor: grabbing;
+}
+
+#cnc-canvas-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  will-change: transform;
+}
+
+#artwork-layer > * {
+  cursor: pointer;
+}
+
+/* LibreOffice-Style Formatting Ribbon Toolbar */
+.libre-formatting-toolbar {
+  height: 42px;
+  background-color: #121419;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 12;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.libre-formatting-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.libre-left-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.libre-action-btn {
+  height: 28px;
+  padding: 0 10px;
+  background: linear-gradient(180deg, #e5a93c 0%, #c48924 100%);
+  border: 1px solid #d4952d;
+  border-radius: var(--radius-sm);
+  color: #0e1013;
+  font-size: 11.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.libre-action-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.libre-action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.libre-sep {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-subtle);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+.libre-ctrl-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.libre-lbl {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.libre-select {
+  height: 28px;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 0 8px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.libre-select:hover, .libre-select:focus {
+  border-color: var(--accent-gold);
+}
+
+.libre-font-dropdown {
+  min-width: 170px;
+  max-width: 220px;
+}
+
+.libre-compact-select {
+  min-width: 80px;
+}
+
+.libre-size-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0 6px;
+  height: 28px;
+}
+
+.libre-input-num {
+  width: 38px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+  outline: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.libre-unit-tag {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+  margin-left: 3px;
+  user-select: none;
+}
+
+.libre-btn-group {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  height: 28px;
+}
+
+.libre-tgl-btn {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.libre-tgl-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.libre-tgl-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.libre-tgl-btn.active {
+  background-color: var(--accent-gold-tint);
+  color: var(--accent-gold);
+}
+
+/* ============================================================ */
+/* Dedicated Document Studio (Stationary, I Love PDF Page Sidebar)*/
+/* ============================================================ */
+.doc-editor-studio {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--workspace-bg);
+  position: relative;
+  z-index: 10;
+}
+
+/* Left: Document Pages Thumbnail Sidebar (I Love PDF Style) */
+.doc-pages-sidebar {
+  width: 170px;
+  flex-shrink: 0;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+}
+
+.pages-sidebar-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-header);
+}
+
+.pages-header-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pages-header-title svg {
+  color: var(--accent-gold);
+}
+
+.btn-add-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--accent-gold);
+  color: var(--accent-btn-text, #0c0e12);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-add-page:hover {
+  background-color: var(--accent-gold-hover);
+  box-shadow: 0 0 8px var(--accent-gold-glow);
+}
+
+.doc-pages-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Page Thumbnail Card */
+.doc-page-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-panel);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.doc-page-card:hover {
+  border-color: var(--border-medium);
+  background-color: var(--bg-hover);
+}
+
+.doc-page-card.active {
+  border-color: var(--accent-gold);
+  background-color: var(--accent-gold-tint);
+  box-shadow: 0 0 10px var(--accent-gold-glow);
+}
+
+.page-thumb-preview {
+  width: 104px;
+  height: 74px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+
+.page-thumb-preview.is-portrait {
+  width: 74px;
+  height: 104px;
+}
+
+.thumb-border-indicator {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(15, 23, 42, 0.4);
+  pointer-events: none;
+}
+
+.thumb-text-line {
+  height: 2px;
+  background-color: rgba(15, 23, 42, 0.35);
+  border-radius: 1px;
+  width: 85%;
+}
+
+.thumb-text-line.short {
+  width: 50%;
+}
+
+.page-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.page-num-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.doc-page-card.active .page-num-tag {
+  color: var(--accent-gold);
+}
+
+.page-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.7;
+}
+
+.doc-page-card:hover .page-card-actions {
+  opacity: 1;
+}
+
+.btn-page-action {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.12s;
+}
+
+.btn-page-action:hover {
+  color: var(--accent-gold);
+}
+
+.btn-page-action.delete-page:hover {
+  color: var(--status-red);
+}
+
+.pages-sidebar-footer {
+  height: 28px;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-header);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  color: var(--text-muted);
+}
+
+/* Center: Scrollable Stationary Document Sheet Stage */
+.doc-editor-viewport {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 24px;
+  background-color: var(--workspace-bg);
+  min-height: 0;
+}
+
+/* Stationary White Paper Sheet - Exact Page Dimensions */
+.doc-paper-sheet {
+  position: relative;
+  margin: 0 auto;
+  background-color: var(--paper-bg, #ffffff);
+  color: #0f172a;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 832px;
+  height: 588px;
+  min-height: 588px;
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+/* Vector Border SVG Layer (pointer-events: none, exact mm scale) */
+.doc-page-border-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Document content area: fully selectable and editable directly on the page! */
+.doc-page-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  color: #0f172a;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  cursor: text;
+  caret-color: #2563eb;
+  font-family: 'Caveat', 'Segoe Script', cursive, sans-serif;
+  overflow: hidden; /* Contained strictly within border margins; auto-paginates on overflow */
+  user-select: text;
+  -webkit-user-select: text;
+  box-sizing: border-box;
+  padding: 44px 38px;
+}
+
+.doc-page-content::selection {
+  background-color: rgba(229, 169, 60, 0.35);
+  color: #000000;
+}
+
+/* Vectorized Images Layer on the Document Sheet */
+.doc-page-images-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.doc-vector-image-box {
+  position: absolute;
+  pointer-events: auto;
+  cursor: move;
+  border: 1px dashed transparent;
+  user-select: none;
+  touch-action: none;
+  box-sizing: border-box;
+}
+
+.doc-vector-image-box:hover {
+  border-color: rgba(229, 169, 60, 0.5);
+}
+
+.doc-vector-image-box.selected {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(229, 169, 60, 0.35);
+}
+
+.doc-vector-image-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Resize Handles */
+.doc-img-handle {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background-color: var(--accent-gold);
+  border: 1px solid #1e293b;
+  border-radius: 2px;
+  display: none;
+  z-index: 20;
+}
+
+.doc-vector-image-box.selected .doc-img-handle {
+  display: block;
+}
+
+.doc-img-handle.handle-tl { top: -5px; left: -5px; cursor: nwse-resize; }
+.doc-img-handle.handle-tr { top: -5px; right: -5px; cursor: nesw-resize; }
+.doc-img-handle.handle-br { bottom: -5px; right: -5px; cursor: nwse-resize; }
+.doc-img-handle.handle-bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
+
+/* Quick Action Toolbar Floating Above Selected Image */
+.doc-img-floating-toolbar {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #181a20;
+  color: #f1f5f9;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  font-size: 11px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.doc-img-floating-toolbar .img-metric-tag {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.doc-img-floating-toolbar button {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+}
+
+.doc-img-floating-toolbar button:hover {
+  color: var(--accent-gold);
+  background-color: rgba(229, 169, 60, 0.15);
+}
+
+.doc-img-floating-toolbar button.btn-delete-img:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* Workspace Footer */
+.workspace-footer {
+  height: 48px;
+  background-color: var(--bg-panel);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.workspace-action-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ws-action-btn {
+  width: 32px;
+  height: 32px;
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ws-action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ws-action-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.ws-action-btn.active {
+  background-color: var(--accent-gold-tint);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.paper-preset-control select {
+  height: 32px;
+}
+
+/* G-code Viewport Split */
+.gcode-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-panel);
+  z-index: 8;
+  padding: 12px;
+}
+
+.gcode-view-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+}
+
+.gcode-canvas-box, .gcode-editor-box {
+  background-color: var(--bg-subcard);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.gcode-canvas-header, .gcode-editor-header {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background-color: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.legend-items {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.draw-dot {
+  background-color: var(--accent-gold);
+}
+
+.travel-dot {
+  background-color: #ef4444;
+}
+
+#gcode-preview-canvas {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#gcode-text-display {
+  flex: 1;
+  background-color: var(--bg-input);
+  color: #d1d5db;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  padding: 10px;
+  border: none;
+  resize: none;
+  outline: none;
+}
